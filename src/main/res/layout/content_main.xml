@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activity.MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+    <RelativeLayout
+        android:visibility="visible"
+        android:id="@+id/first_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="创建链表并求相邻K位最大和"
+            android:id="@+id/first_create_btn"
+            android:layout_below="@+id/first_k_edt"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请按顺序输入链表数据"
+            android:id="@+id/first_title_tv"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/first_linked_list_edt"
+            android:hint="以单个空格分隔"
+            android:layout_below="@+id/first_title_tv"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/first_k_edt"
+            android:hint="输入K值"
+            android:gravity="center"
+            android:layout_below="@+id/first_linked_list_edt"
+            android:layout_alignLeft="@+id/first_create_btn"
+            android:layout_alignStart="@+id/first_create_btn"
+            android:layout_alignRight="@+id/first_create_btn"
+            android:layout_alignEnd="@+id/first_create_btn" />
+
+        <EditText
+            android:gravity="start"
+            android:hint="等待结果..."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/first_show_result_edt"
+            android:layout_below="@+id/first_create_btn"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/second_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <EditText
+            android:hint="请输入中缀表达式"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/second_mid_edt"
+            android:layout_alignBottom="@+id/second_trans_btn"
+            android:layout_toLeftOf="@+id/second_trans_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="转化"
+            android:id="@+id/second_trans_btn"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="求值"
+            android:id="@+id/second_sum_btn"
+            android:layout_below="@+id/second_mid_edt"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:hint="后缀表达式"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/second_post_edt"
+            android:layout_alignBottom="@+id/second_sum_btn"
+            android:layout_toLeftOf="@+id/second_sum_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:hint="等待结果..."
+            android:gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/second_show_result_edt"
+            android:layout_below="@+id/second_post_edt"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/third_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="进队"
+            android:id="@+id/third_enter_btn"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:hint="0单个出队，@全部出队"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/third_enter_queue_edt"
+            android:layout_alignBottom="@+id/third_enter_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/third_enter_btn"
+            android:layout_toStartOf="@+id/third_enter_btn" />
+
+        <EditText
+            android:hint="队列"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/third_show_queue_edt"
+            android:layout_below="@+id/third_enter_queue_edt"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:hint="等待结果..."
+            android:gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/third_show_result_edt"
+            android:layout_below="@+id/third_show_queue_edt"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/third_enter_btn"
+            android:layout_alignEnd="@+id/third_enter_btn"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/forth_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/fifth_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/last_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
+
+</RelativeLayout>
