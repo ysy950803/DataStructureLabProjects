@@ -17,7 +17,7 @@
             android:title="队列的应用" />
         <item
             android:id="@+id/nav_binary_tree"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_menu_camera"
             android:title="二叉树的应用" />
         <item
             android:id="@+id/nav_map"
@@ -25,7 +25,7 @@
             android:title="图的应用" />
         <item
             android:id="@+id/nav_last"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_menu_gallery"
             android:title="综合应用" />
     </group>
 

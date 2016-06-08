@@ -1,56 +1,54 @@
 package com.ysy.datastructurelabprojects.entity.second_stack;
 
-import android.util.Log;
-
 public class OwnStack {
 
-    private int maxSize; // 栈的最大容量
-    private String[] ch; // 栈的数据
-    private int top; // 栈头标记
+    private int MAX_SIZE; // 栈的最大容量
+    private String[] chars; // 栈的数据
+    private int TOP; // 栈头标记
 
     public OwnStack(int s) {
-        maxSize = s;
-        ch = new String[s];
-        top = -1;
+        MAX_SIZE = s;
+        chars = new String[s];
+        TOP = -1;
     }
 
     public void push(String c) {//入栈
-        ch[++top] = c;
+        chars[++TOP] = c;
     }
 
     public String pop() {//出栈
-        return ch[top--];
+        return chars[TOP--];
     }
 
     public String peek() {
-        return ch[top];
+        return chars[TOP];
     }
 
     public boolean isEmpty() {
-        return top == -1;
+        return TOP == -1;
     }
 
     public boolean isFull() {
-        return top == (maxSize - 1);
+        return TOP == (MAX_SIZE - 1);
     }
 
     public int size() {
-        return top + 1;
+        return TOP + 1;
     }
 
     public String get(int index) {
-        return ch[index];
+        return chars[index];
     }
 
-    public void display(String str) {
-//        System.out.print(str);
-//        System.out.print(" OwnStack (bottom-->top): ");
-        Log.d("TEST", str + " OwnStack (bottom-->top): ");
-        for (int i = 0; i < size(); i++) {
-//            System.out.print(get(i)+" ");
-            Log.d("TEST", get(i) + " ");
-        }
-//        System.out.println();
-    }
+//    public void display(String str) {
+////        System.out.print(str);
+////        System.out.print(" OwnStack (bottom-->TOP): ");
+//        Log.d("TEST", str + " OwnStack (bottom-->TOP): ");
+//        for (int i = 0; i < size(); i++) {
+////            System.out.print(get(i)+" ");
+//            Log.d("TEST", get(i) + " ");
+//        }
+////        System.out.println();
+//    }
 
 }  

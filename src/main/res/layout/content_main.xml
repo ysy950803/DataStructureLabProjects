@@ -188,6 +188,52 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <EditText
+            android:hint="输入一个英文句子(eg:I love you.)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/forth_sentence_edt"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="构造二叉树"
+            android:id="@+id/forth_create_bt_btn"
+            android:layout_below="@+id/forth_create_tips_tv"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="按照字典顺序构造一棵二叉排序树"
+            android:id="@+id/forth_create_tips_tv"
+            android:layout_below="@+id/forth_sentence_edt"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/forth_ldr_edt"
+            android:hint="中序遍历结果"
+            android:layout_below="@+id/forth_ldr_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="中序遍历"
+            android:id="@+id/forth_ldr_btn"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -195,6 +241,67 @@
         android:id="@+id/fifth_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <EditText
+            android:hint="输入顶点信息（以空格隔开）"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fifth_vertex_edt"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:gravity="start"
+            android:hint="输入弧信息（eg:1,2每条弧以空格隔开）"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fifth_arc_edt"
+            android:layout_below="@+id/fifth_vertex_edt"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/fifth_cross_btn" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="建立有向图的十字链表"
+            android:id="@+id/fifth_cross_btn"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="判断是否为有向无环图"
+            android:id="@+id/fifth_judge_btn"
+            android:layout_below="@+id/fifth_topology_tv"
+            android:layout_alignLeft="@+id/fifth_cross_btn"
+            android:layout_alignStart="@+id/fifth_cross_btn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="拓扑排序法"
+            android:id="@+id/fifth_topology_tv"
+            android:layout_below="@+id/fifth_cross_btn"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:hint="等待结果..."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fifth_result_edt"
+            android:layout_below="@+id/fifth_judge_btn"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 

@@ -3,6 +3,7 @@ package com.ysy.datastructurelabprojects.activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,7 +20,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ysy.datastructurelabprojects.R;
+import com.ysy.datastructurelabprojects.entity.fifth_map.Arc;
+import com.ysy.datastructurelabprojects.entity.fifth_map.MapApplication;
 import com.ysy.datastructurelabprojects.entity.first_linkedList.LinkedListApplication;
+import com.ysy.datastructurelabprojects.entity.forth_binaryTree.BinaryTreeApplication;
 import com.ysy.datastructurelabprojects.entity.second_stack.StackApp;
 import com.ysy.datastructurelabprojects.entity.thrid_queue.QueueApplication;
 
@@ -49,6 +53,20 @@ public class MainActivity extends AppCompatActivity
     private Button thirdEnterBtn;
     private EditText thirdShowResultEdt;
     private EditText thirdShowQueueEdt;
+
+    private EditText forthSentenceEdt;
+    private Button forthCreateBTBtn;
+    private Button forthLDRBtn;
+    private EditText forthLDREdt;
+    private boolean isCreated;
+    private BinaryTreeApplication binaryTreeApp;
+
+    private EditText fifthVertexEdt;
+    private EditText fifthArcEdt;
+    private Button fifthCrossBtn;
+    private Button fifthJudgeBtn;
+    private EditText fifthResultEdt;
+    private MapApplication mapApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,16 +170,18 @@ public class MainActivity extends AppCompatActivity
             firstLayout.setVisibility(View.GONE);
             secondLayout.setVisibility(View.GONE);
             thirdLayout.setVisibility(View.GONE);
-            forthLayout.setVisibility(View.VISIBLE);
-            fifthLayout.setVisibility(View.GONE);
+            forthLayout.setVisibility(View.GONE);
+            fifthLayout.setVisibility(View.VISIBLE);
             lastLayout.setVisibility(View.GONE);
+            initFifthLayoutView();
         } else if (id == R.id.nav_binary_tree) {
             firstLayout.setVisibility(View.GONE);
             secondLayout.setVisibility(View.GONE);
             thirdLayout.setVisibility(View.GONE);
-            forthLayout.setVisibility(View.GONE);
-            fifthLayout.setVisibility(View.VISIBLE);
+            forthLayout.setVisibility(View.VISIBLE);
+            fifthLayout.setVisibility(View.GONE);
             lastLayout.setVisibility(View.GONE);
+            initForthLayoutView();
         } else if (id == R.id.nav_last) {
             firstLayout.setVisibility(View.GONE);
             secondLayout.setVisibility(View.GONE);
@@ -169,6 +189,7 @@ public class MainActivity extends AppCompatActivity
             forthLayout.setVisibility(View.GONE);
             fifthLayout.setVisibility(View.GONE);
             lastLayout.setVisibility(View.VISIBLE);
+            initLastLayoutView();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -289,6 +310,100 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    private void initForthLayoutView() {
+        forthSentenceEdt = (EditText) findViewById(R.id.forth_sentence_edt);
+        forthCreateBTBtn = (Button) findViewById(R.id.forth_create_bt_btn);
+        forthLDRBtn = (Button) findViewById(R.id.forth_ldr_btn);
+        forthLDREdt = (EditText) findViewById(R.id.forth_ldr_edt);
+
+        forthSentenceEdt.setText("");
+        forthLDREdt.setText("");
+        forthLDRBtn.setEnabled(false);
+        isCreated = false;
+
+        forthCreateBTBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (forthSentenceEdt.getText().toString().equals(""))
+                    Toast.makeText(MainActivity.this, "句子输入有误，请重新输入！", Toast.LENGTH_SHORT).show();
+                else {
+                    String[] keys = stringToStringArray(forthSentenceEdt.getText().toString());
+                    if (keys == null)
+                        Toast.makeText(MainActivity.this, "句子输入有误，请重新输入！", Toast.LENGTH_SHORT).show();
+                    else {
+                        binaryTreeApp = new BinaryTreeApplication(keys);
+                        Toast.makeText(MainActivity.this, "构造成功！", Toast.LENGTH_SHORT).show();
+                        forthLDRBtn.setEnabled(true);
+                        isCreated = true;
+                    }
+                }
+            }
+        });
+
+        forthLDRBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isCreated) {
+                    Toast.makeText(MainActivity.this, "请先构造二叉排序树再遍历！", Toast.LENGTH_SHORT).show();
+                } else {
+                    forthLDREdt.setText(binaryTreeApp.getVisitResult());
+                    isCreated = false;
+                }
+            }
+        });
+
+    }
+
+    private void initFifthLayoutView() {
+        fifthVertexEdt = (EditText) findViewById(R.id.fifth_vertex_edt);
+        fifthArcEdt = (EditText) findViewById(R.id.fifth_arc_edt);
+        fifthCrossBtn = (Button) findViewById(R.id.fifth_cross_btn);
+        fifthJudgeBtn = (Button) findViewById(R.id.fifth_judge_btn);
+        fifthResultEdt = (EditText) findViewById(R.id.fifth_result_edt);
+
+        fifthVertexEdt.setText("");
+        fifthArcEdt.setText("");
+        fifthResultEdt.setText("");
+        fifthJudgeBtn.setEnabled(false);
+        isCreated = false;
+
+        fifthCrossBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    mapApp = new MapApplication(
+                            stringToIntArray(fifthVertexEdt.getText().toString()),
+                            stringToArcArray(fifthArcEdt.getText().toString()));
+                    Toast.makeText(MainActivity.this, "成功创建有向图的十字链表！", Toast.LENGTH_SHORT).show();
+                    fifthJudgeBtn.setEnabled(true);
+                    isCreated = true;
+                } catch (Exception e) {
+                    Log.d("TEST", "Exception:" + e);
+                }
+            }
+        });
+
+        fifthJudgeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isCreated) {
+                    Toast.makeText(MainActivity.this, "请先创建十字链表再判断！", Toast.LENGTH_SHORT).show();
+                } else {
+                    boolean temp = mapApp.isTopology();
+                    if (temp) {
+                        fifthResultEdt.setText("This graph has not cycle.\n" + "All Outputs:" + mapApp.getOutputVexStr());
+                    } else
+                        fifthResultEdt.setText("This graph has cycle.");
+                    isCreated = false;
+                }
+            }
+        });
+    }
+
+    private void initLastLayoutView() {
+
+    }
+
     private int[] stringToIntArray(String s) {
         String[] tempStr = s.trim().split(" ");
         int[] tempArray = new int[tempStr.length];
@@ -296,6 +411,44 @@ public class MainActivity extends AppCompatActivity
             tempArray[i] = Integer.parseInt(tempStr[i]);
         }
         return tempArray;
+    }
+
+    private String[] stringToStringArray(String s) {
+        String[] tempStr = s.trim().split(" ");
+        String[] tempStrArray = tempStr;
+        for (int i = 0; i < tempStr.length; ++i) { // 循环判断句号是否出现在错误的位置
+            if (i != tempStr.length - 1 && tempStr[i].contains(".")) {
+                tempStrArray = null;
+                break;
+            }
+            if (i == tempStr.length - 1) {
+                String lastKey = tempStr[i];
+                for (int j = 0; j < lastKey.length(); ++j) {
+                    if (lastKey.charAt(j) == '.' && j != lastKey.length() - 1) {
+                        tempStrArray = null;
+                        break;
+                    } else if (j == lastKey.length() - 1 && lastKey.charAt(j) != '.') {
+                        tempStrArray = null;
+                        break;
+                    }
+                }
+            }
+        }
+        return tempStrArray;
+    }
+
+    private Arc[] stringToArcArray(String s) {
+        String[] tempStr = s.trim().split(" ");
+        Arc[] arcs = new Arc[tempStr.length];
+        int u, v;
+        for (int i = 0; i < tempStr.length; ++i) {
+            String[] uv = tempStr[i].split(",");
+            u = Integer.parseInt(uv[0]);
+            v = Integer.parseInt(uv[1]);
+            arcs[i] = new Arc(u, v);
+        }
+
+        return arcs;
     }
 
 }

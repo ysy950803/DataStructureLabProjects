@@ -77,25 +77,6 @@ public class StackApp {
                     a = String.valueOf(ch);
                     s.push(a);
                     break;
-                case 's':
-                case 'c':
-                case 't': // 三角函数
-                    while (s.size() > 1
-                            && (s.peek() == "s" || s.peek() == "c"
-                            || s.peek() == "t" || s.peek() == "^" || s
-                            .peek() == "√"))
-                        // 优先级比较，与栈顶，大于等于的弹出
-                        postFix[j++] = s.pop();
-                    a = String.valueOf(ch);
-                    s.push(a);
-                    break;
-                case '^': // 幂
-                case '√': // 开方
-                    while (s.size() > 1 && (s.peek() == "^" || s.peek() == "√"))
-                        postFix[j++] = s.pop();
-                    a = String.valueOf(ch);
-                    s.push(a);
-                    break;
             }
             i++;
         }
@@ -108,11 +89,7 @@ public class StackApp {
 
     public static String evaluate(String midFix) { // 后缀表达式求值
         String postFix[] = null;
-        try {
-            postFix = transMidToPost(midFix);
-        } catch (EmptyStackException e) {
-            return "syntax error";
-        }
+        postFix = transMidToPost(midFix);
         int i = 0;
         double x1, x2, n;
         String str;
@@ -154,32 +131,6 @@ public class StackApp {
                     x1 = Double.parseDouble(s.pop());
                     x2 = Double.parseDouble(s.pop());
                     n = x2 / x1;
-                    s.push(String.valueOf(n));
-                    break;
-                case 's':
-                    x1 = Double.parseDouble(s.pop());
-                    n = Math.sin(x1 * Math.PI / 180);
-                    s.push(String.valueOf(n));
-                    break;
-                case 'c':
-                    x1 = Double.parseDouble(s.pop());
-                    n = Math.cos(x1 * Math.PI / 180);
-                    s.push(String.valueOf(n));
-                    break;
-                case 't':
-                    x1 = Double.parseDouble(s.pop());
-                    n = Math.tan(x1 * Math.PI / 180);
-                    s.push(String.valueOf(n));
-                    break;
-                case '√':
-                    x1 = Double.parseDouble(s.pop());
-                    n = Math.sqrt(x1);
-                    s.push(String.valueOf(n));
-                    break;// 开方
-                case '^':
-                    x1 = Double.parseDouble(s.pop());
-                    x2 = Double.parseDouble(s.pop());
-                    n = Math.pow(x2, x1);
                     s.push(String.valueOf(n));
                     break;
             }

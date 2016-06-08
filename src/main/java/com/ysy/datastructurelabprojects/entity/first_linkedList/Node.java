@@ -6,6 +6,7 @@ import android.util.Log;
  * Created by Shengyu Yao on 2016/5/27.
  */
 public class Node {
+
     protected Node next;
     protected int data;
     protected int position;
