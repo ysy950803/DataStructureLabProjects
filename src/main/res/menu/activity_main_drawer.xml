@@ -4,6 +4,10 @@
     <group android:checkableBehavior="single">
         <item
             android:checked="true"
+            android:id="@+id/nav_last"
+            android:icon="@drawable/ic_notifications_black_24dp"
+            android:title="综合应用" />
+        <item
             android:id="@+id/nav_first"
             android:icon="@drawable/ic_menu_camera"
             android:title="链表的应用" />
@@ -17,16 +21,12 @@
             android:title="队列的应用" />
         <item
             android:id="@+id/nav_binary_tree"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_school_black_24dp"
             android:title="二叉树的应用" />
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_menu_manage"
             android:title="图的应用" />
-        <item
-            android:id="@+id/nav_last"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="综合应用" />
     </group>
 
     <item android:title="其它">
@@ -34,11 +34,11 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="关于" />
+                android:title="项目主页" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_exit"
                 android:icon="@drawable/ic_menu_send"
-                android:title="退出" />
+                android:title="退出应用" />
         </menu>
     </item>
 

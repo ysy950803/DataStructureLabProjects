@@ -5,7 +5,7 @@ package com.ysy.datastructurelabprojects.entity.fifth_map;
  */
 public class MapApplication {
 
-    private VertexNode G[];
+    private VertexNode[] G;
     private String outputVexStr = "";
 
     public MapApplication(int datas[], Arc arcs[]) {
@@ -17,6 +17,7 @@ public class MapApplication {
         ArcNode p;
         int x, y;
         for (int i = 0; i < datas.length; ++i) { // 从用户界面提取到的datas数据填入顶点表G
+            G[i] = new VertexNode();
             G[i].data = datas[i];
             G[i].fin = G[i].fout = null;
         }
@@ -60,7 +61,7 @@ public class MapApplication {
     }
 
     public boolean isTopology() {
-        int n = this.G.length, count = 0, id[] = new int[0];
+        int n = this.G.length, count = 0, id[] = new int[this.G.length];
         ArcNode p;
         OwnStack ownStack = new OwnStack(n);
 

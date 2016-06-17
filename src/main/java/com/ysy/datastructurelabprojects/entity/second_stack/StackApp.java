@@ -1,7 +1,5 @@
 package com.ysy.datastructurelabprojects.entity.second_stack;
 
-import java.util.EmptyStackException;
-
 /**
  * Created by Shengyu Yao on 2016/5/29.
  */
@@ -29,7 +27,7 @@ public class StackApp {
         OwnStack s = new OwnStack(midFix.length()); // 栈结构存放操作符
         String a;
         s.push("="); // 第一个为等号
-        int i = 0, j = 0;
+        int i, j = 0;
         char ch;
         for (i = 0; i < midFix.length(); ) {
             ch = midFix.charAt(i);
@@ -88,7 +86,7 @@ public class StackApp {
     }
 
     public static String evaluate(String midFix) { // 后缀表达式求值
-        String postFix[] = null;
+        String postFix[];
         postFix = transMidToPost(midFix);
         int i = 0;
         double x1, x2, n;

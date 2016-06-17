@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.ysy.datastructurelabprojects.activity.SearchResultActivity">
+
+    <TextView
+        android:id="@+id/last_file_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="文件名"
+        android:textColor="@android:color/black"
+        android:textSize="18dp" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/last_search_edt"
+        android:layout_below="@+id/last_file_name_tv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/last_search_edt"
+            android:layout_below="@+id/last_file_name_tv">
+
+            <TextView
+                android:id="@+id/last_top1_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="Top1"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top1_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="8dp"
+                android:text="0"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top2_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/last_top1_tv"
+                android:text="Top2"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top2_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/last_top2_tv"
+                android:layout_marginRight="8dp"
+                android:text="0"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top3_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/last_top2_tv"
+                android:text="Top3"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top3_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/last_top2_num_tv"
+                android:layout_marginRight="8dp"
+                android:text="0"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top4_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/last_top3_tv"
+                android:text="Top4"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top4_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/last_top4_tv"
+                android:layout_marginRight="8dp"
+                android:text="0"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top5_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/last_top4_tv"
+                android:text="Top5"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top5_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/last_top4_num_tv"
+                android:layout_marginRight="8dp"
+                android:text="0"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top6_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/last_top5_tv"
+                android:text="Top6"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top6_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/last_top6_tv"
+                android:layout_marginRight="8dp"
+                android:text="0"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top7_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/last_top6_tv"
+                android:text="Top7"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top7_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/last_top6_num_tv"
+                android:layout_marginRight="8dp"
+                android:text="0"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top8_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/last_top7_tv"
+                android:text="Top8"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top8_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/last_top8_tv"
+                android:layout_marginRight="8dp"
+                android:text="0"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top9_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/last_top8_tv"
+                android:text="Top9"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top9_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/last_top8_num_tv"
+                android:layout_marginRight="8dp"
+                android:text="0"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top10_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/last_top9_tv"
+                android:text="Top10"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/last_top10_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/last_top10_tv"
+                android:layout_marginRight="8dp"
+                android:text="0"
+                android:textSize="16dp" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <EditText
+        android:id="@+id/last_search_edt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/last_search_btn"
+        android:layout_toStartOf="@+id/last_search_btn"
+        android:hint="输入要搜索的单词" />
+
+    <Button
+        android:id="@+id/last_search_btn"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/last_search_edt"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="搜索" />
+
+    <TextView
+        android:id="@+id/last_search_word_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/last_search_edt"
+        android:text="Word..."
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/last_search_word_num_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/last_search_word_tv"
+        android:text="Count..."
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/last_reset_btn"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="重新初始化" />
+
+    <Button
+        android:id="@+id/last_delete_btn"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="删除此记录" />
+
+</RelativeLayout>
