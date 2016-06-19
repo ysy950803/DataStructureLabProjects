@@ -1,5 +1,11 @@
 package com.ysy.datastructurelabprojects.activity;
 
+import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -52,10 +58,14 @@ public class SearchResultActivity extends AppCompatActivity {
     private TextView searchCount;
     private Button resetBtn;
     private Button deleteBtn;
+    private ProgressDialog waitDialog;
 
     private String[] temp_topTen;
 
     private String FIXED_FILE_NAME = MainActivity.FILE_NAME.replace("/", "").replace(".", "");
+
+    private static int READ_EXTERNAL_STORAGE_REQUEST_CODE = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +90,14 @@ public class SearchResultActivity extends AppCompatActivity {
         resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    readFile();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermission();
+                } else {
+                    try {
+                        readFile();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -100,10 +114,14 @@ public class SearchResultActivity extends AppCompatActivity {
         // 启动该页面时获取存储在本地的TOP_TEN数据
         String topTenArrayStr = new DataProcess(SearchResultActivity.this).readStrData(FIXED_FILE_NAME + "TOP_TEN");
         if (topTenArrayStr.equals("")) {
-            try {
-                readFile();
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermission();
+            } else {
+                try {
+                    readFile();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         } else {
             topTenArrayStr = topTenArrayStr.replace("[", "").replace("]", "");
@@ -111,6 +129,41 @@ public class SearchResultActivity extends AppCompatActivity {
             setTopTenFromStorage(topTenStrArray);
         }
 
+    }
+
+    /**
+     * Android 6.0后读写文件需要向用户提示单独获取权限
+     */
+    public void requestPermission() {
+        //判断当前Activity是否已经获得了该权限
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            //如果App的权限申请曾经被用户拒绝过，就需要在这里跟用户做出解释
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                Toast.makeText(this, "Please give me the permission.", Toast.LENGTH_SHORT).show();
+            } else {
+                //进行权限请求
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        READ_EXTERNAL_STORAGE_REQUEST_CODE);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == READ_EXTERNAL_STORAGE_REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission Granted
+                try {
+                    readFile();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // Permission Denied
+                Toast.makeText(this, "Please give me the permission.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void findView() {
@@ -153,13 +206,15 @@ public class SearchResultActivity extends AppCompatActivity {
      * 想读取文件所有内容，需要这样写map(FileChannel.MapMode.READ_ONLY, 0, f.length())
      */
     private void readFile() throws Exception {
+        waitDialog = ProgressDialog.show(this, "温馨提示", "正在加载，请稍后...");
+
         String[] eachReadStrArray;
         LastApplication lastApp = new LastApplication();
 
         final int BUFFER_SIZE = 0x600000; // 缓冲大小为6M
+
         File f = new File(MainActivity.FILE_NAME);
 
-//        int len = 0;
         long start = System.currentTimeMillis();
 
         MappedByteBuffer inputBuffer = new RandomAccessFile(f, "r").getChannel().map(FileChannel.MapMode.READ_ONLY, 0, f.length());
@@ -200,6 +255,8 @@ public class SearchResultActivity extends AppCompatActivity {
 
         saveTopTen();
         saveAllWords(lastApp.getWordLists(), lastApp.getCountLists());
+
+        waitDialog.dismiss();
     }
 
     private void setTopTenFromRAM(String[] temp_topTen) {
