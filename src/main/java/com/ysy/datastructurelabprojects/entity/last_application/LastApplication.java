@@ -54,14 +54,19 @@ public class LastApplication {
         }
 
         quickSortForList(countList, wordList); // 快速排序后得到每一片段的降序所有单词
-        wordLists.add(wordList); // 若文件过大，最后会有多组TopTen
+        wordLists.add(wordList);
         countLists.add(countList);
 
-        for (int i = 0; i < 10; i++) { // 将每一片段的TopTen单独存起来，以便在后续findTopTen时效率更高（片段数*10）
+        int count_ten;
+        if (wordLists.size() >= 10)
+            count_ten = 10;
+        else
+            count_ten = wordLists.size();
+        for (int i = 0; i < count_ten; i++) { // 将每一片段的TopTen单独存起来，以便在后续findTopTen时效率更高（片段数*10）
             topTenWordList.add(wordList.get(i));
             topTenCountList.add(countList.get(i));
         }
-        topTenWordLists.add(topTenWordList);
+        topTenWordLists.add(topTenWordList); // 若文件过大，最后会有多组TopTen
         topTenCountLists.add(topTenCountList);
     }
 

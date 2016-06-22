@@ -21,7 +21,12 @@ import com.ysy.datastructurelabprojects.entity.last_application.LastApplication;
 import com.ysy.datastructurelabprojects.entity.last_application.DataProcess;
 import com.ysy.datastructurelabprojects.entity.last_application.SearchWord;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -58,7 +63,6 @@ public class SearchResultActivity extends AppCompatActivity {
     private TextView searchCount;
     private Button resetBtn;
     private Button deleteBtn;
-    private ProgressDialog waitDialog;
 
     private String[] temp_topTen;
 
@@ -94,7 +98,7 @@ public class SearchResultActivity extends AppCompatActivity {
                     requestPermission();
                 } else {
                     try {
-                        readFile();
+                        readTxtFile();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -107,6 +111,14 @@ public class SearchResultActivity extends AppCompatActivity {
             public void onClick(View v) {
                 MainActivity.TITLE_LIST.remove(MainActivity.POSITION);
                 new DataProcess(SearchResultActivity.this).saveData(FIXED_FILE_NAME + "TOP_TEN", "");
+
+                int lists_length = new DataProcess(SearchResultActivity.this).readIntData(FIXED_FILE_NAME + "WORD_LISTS_LENGTH");
+                for (int i = 0; i < lists_length; i++) {
+                    new DataProcess(SearchResultActivity.this).saveData(FIXED_FILE_NAME + "ALL_WORDS" + i, "");
+                    new DataProcess(SearchResultActivity.this).saveData(FIXED_FILE_NAME + "ALL_COUNTS" + i, "");
+                }
+                new DataProcess(SearchResultActivity.this).saveData(FIXED_FILE_NAME + "WORD_LISTS_LENGTH", 0);
+
                 finish();
             }
         });
@@ -118,7 +130,7 @@ public class SearchResultActivity extends AppCompatActivity {
                 requestPermission();
             } else {
                 try {
-                    readFile();
+                    readTxtFile();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -146,6 +158,12 @@ public class SearchResultActivity extends AppCompatActivity {
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         READ_EXTERNAL_STORAGE_REQUEST_CODE);
             }
+        } else {
+            try {
+                readTxtFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -155,7 +173,7 @@ public class SearchResultActivity extends AppCompatActivity {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission Granted
                 try {
-                    readFile();
+                    readTxtFile();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -206,12 +224,10 @@ public class SearchResultActivity extends AppCompatActivity {
      * 想读取文件所有内容，需要这样写map(FileChannel.MapMode.READ_ONLY, 0, f.length())
      */
     private void readFile() throws Exception {
-        waitDialog = ProgressDialog.show(this, "温馨提示", "正在加载，请稍后...");
-
         String[] eachReadStrArray;
         LastApplication lastApp = new LastApplication();
 
-        final int BUFFER_SIZE = 0x600000; // 缓冲大小为6M
+        final int BUFFER_SIZE = 0xf4240; // 缓冲大小为1M
 
         File f = new File(MainActivity.FILE_NAME);
 
@@ -219,7 +235,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
         MappedByteBuffer inputBuffer = new RandomAccessFile(f, "r").getChannel().map(FileChannel.MapMode.READ_ONLY, 0, f.length());
 
-        byte[] dst = new byte[BUFFER_SIZE]; // 每次读出6M的内容
+        byte[] dst = new byte[BUFFER_SIZE]; // 每次读出1M的内容
         for (int offset = 0; offset < inputBuffer.capacity(); offset += BUFFER_SIZE) {
             if (inputBuffer.capacity() - offset >= BUFFER_SIZE) {
                 for (int i = 0; i < BUFFER_SIZE; i++)
@@ -233,7 +249,8 @@ public class SearchResultActivity extends AppCompatActivity {
 
             String eachReadStr = new String(dst, 0, length);
             String indexOfEachReadStr = eachReadStr;
-//            len += eachReadStr.length();
+
+            Toast.makeText(SearchResultActivity.this, offset + " " + indexOfEachReadStr.length(), Toast.LENGTH_SHORT).show();
 
             for (int i = 0; i < indexOfEachReadStr.length(); ++i) {
                 if (!('0' < indexOfEachReadStr.charAt(i) && indexOfEachReadStr.charAt(i) < '9' ||
@@ -242,7 +259,7 @@ public class SearchResultActivity extends AppCompatActivity {
                     eachReadStr = eachReadStr.replace(indexOfEachReadStr.charAt(i), ' ');
                 }
             }
-
+//
             eachReadStrArray = eachReadStr.trim().split("\\s+"); // 得到分段的单词数组，若文件内容过多，将会有很多段
             lastApp.collectAllWords(eachReadStrArray); // 收集片段
         }
@@ -255,8 +272,60 @@ public class SearchResultActivity extends AppCompatActivity {
 
         saveTopTen();
         saveAllWords(lastApp.getWordLists(), lastApp.getCountLists());
+    }
 
-        waitDialog.dismiss();
+    private void readTxtFile() throws IOException {
+        long start = System.currentTimeMillis();
+
+        LastApplication lastApp = new LastApplication();
+        File file = new File(MainActivity.FILE_NAME);
+        BufferedInputStream bIS = new BufferedInputStream(new FileInputStream(file));
+        BufferedReader bR = new BufferedReader(new InputStreamReader(bIS, "utf-8"), 4 * 1024 * 1024); // 用4M的缓冲读取文本文件
+
+        String[] eachReadStrArray;
+        String eachReadStr = "";
+        String line;
+        int eachCount = 0;
+
+        while ((line = bR.readLine()) != null) {
+            eachReadStr = eachReadStr + " " + line + " ";
+            ++eachCount;
+            if (eachCount == 32) {
+                String indexOfEachLine = eachReadStr;
+                for (int i = 0; i < indexOfEachLine.length(); ++i) {
+                    if (!('0' < indexOfEachLine.charAt(i) && indexOfEachLine.charAt(i) < '9' ||
+                            indexOfEachLine.charAt(i) > 'A' && indexOfEachLine.charAt(i) < 'z' ||
+                            indexOfEachLine.charAt(i) == '_')) {
+                        eachReadStr = eachReadStr.replace(indexOfEachLine.charAt(i), ' ');
+                    }
+                }
+                eachReadStrArray = eachReadStr.trim().split("\\s+"); // 得到分段的单词数组，若文件内容过多，将会有很多段
+                lastApp.collectAllWords(eachReadStrArray); // 收集片段
+                eachCount = 0;
+                eachReadStr = "";
+            }
+        }
+        if (eachCount != 0) {
+            String indexOfEachLine = eachReadStr;
+            for (int i = 0; i < indexOfEachLine.length(); ++i) {
+                if (!('0' < indexOfEachLine.charAt(i) && indexOfEachLine.charAt(i) < '9' ||
+                        indexOfEachLine.charAt(i) > 'A' && indexOfEachLine.charAt(i) < 'z' ||
+                        indexOfEachLine.charAt(i) == '_')) {
+                    eachReadStr = eachReadStr.replace(indexOfEachLine.charAt(i), ' ');
+                }
+            }
+            eachReadStrArray = eachReadStr.trim().split("\\s+"); // 得到分段的单词数组，若文件内容过多，将会有很多段
+            lastApp.collectAllWords(eachReadStrArray); // 收集片段
+        }
+
+        long end = System.currentTimeMillis();
+        Toast.makeText(SearchResultActivity.this, "读取文本耗时为 " + (end - start) + " ms", Toast.LENGTH_SHORT).show();
+
+        temp_topTen = lastApp.findTopTen();
+        setTopTenFromRAM(temp_topTen);
+
+        saveTopTen();
+        saveAllWords(lastApp.getWordLists(), lastApp.getCountLists());
     }
 
     private void setTopTenFromRAM(String[] temp_topTen) {
